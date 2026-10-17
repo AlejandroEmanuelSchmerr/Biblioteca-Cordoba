@@ -1,0 +1,67 @@
+INGLÉS — JUEVES 15/10/2026
+Tema: describir relaciones de base de datos y explicar un sistema web
+Duración sugerida: 45 minutos
+Estado: actividades resueltas; falta que el estudiante las lea en voz alta y las practique.
+
+CÓMO LEER LA PRONUNCIACIÓN
+La pronunciación escrita es una aproximación para hispanohablantes, no una transcripción perfecta. Las sílabas en MAYÚSCULAS llevan más fuerza. Escuchá cada frase con un diccionario de audio y repetila tres veces.
+
+ACTIVIDAD 1 — VOCABULARIO (10 minutos)
+1. Database = base de datos. Pronunciación: DÉI-ta-beis.
+2. Table = tabla. Pronunciación: TÉI-bol.
+3. Relationship = relación. Pronunciación: ri-LÉI-shon-ship.
+4. Foreign key = clave foránea. Pronunciación: FÓ-rin kí.
+5. Primary key = clave primaria. Pronunciación: PRÁI-me-ri kí.
+6. Reader = lector. Pronunciación: RÍ-der.
+7. Librarian = bibliotecario. Pronunciación: lai-BRÉ-ri-an.
+8. Loan = préstamo. Pronunciación: loun.
+9. Request = solicitud. Pronunciación: ri-KUÉST.
+10. Return = devolución/devolver. Pronunciación: ri-TÉRN.
+11. To connect = conectar. Pronunciación: tu ko-NÉKT.
+12. I tested = probé. Pronunciación: ai TÉS-tid.
+
+ACTIVIDAD 2 — GRAMÁTICA: THERE IS / THERE ARE (8 minutos)
+There is se usa con una cosa en singular; there are, con varias.
+- There is a reader table. = Hay una tabla de lectores. Pronunciación: der is a RÍ-der TÉI-bol.
+- There are several relationships. = Hay varias relaciones. Pronunciación: der ar SÉ-ve-ral ri-LÉI-shon-ships.
+- There is a foreign key in the loan table. = Hay una clave foránea en la tabla de préstamos. Pronunciación: der is a FÓ-rin kí in de loun TÉI-bol.
+- The librarian records the loan. = El bibliotecario registra el préstamo. Pronunciación: de lai-BRÉ-ri-an ri-KÓRDS de loun.
+
+ACTIVIDAD 3 — COMPLETAR (RESPUESTAS) (7 minutos)
+1. A database stores information. = Una base de datos almacena información. Pronunciación: a DÉI-ta-beis stors in-for-MÉI-shon.
+2. A primary key identifies a record. = Una clave primaria identifica un registro. Pronunciación: a PRÁI-me-ri kí ai-DÉN-ti-fais a RÉ-kord.
+3. A foreign key connects related tables. = Una clave foránea conecta tablas relacionadas. Pronunciación: a FÓ-rin kí ko-NÉKTS ri-LÉI-tid TÉI-bols.
+4. The librarian can review requests. = El bibliotecario puede revisar solicitudes. Pronunciación: de lai-BRÉ-ri-an can ri-VIÚ ri-KUÉSTS.
+5. Readers can search the catalog. = Los lectores pueden buscar en el catálogo. Pronunciación: RÍ-ders can serch de KÁ-ta-log.
+
+ACTIVIDAD 4 — HABLAR DE TU PROYECTO (10 minutos)
+English: Hello. My project is called Biblioteca Córdoba. It is a library management website built with Python and Django. It manages readers, books, loan requests, loans, returns, and support messages. The database uses relationships between readers, books, loans, and requests. The librarian has a separate login, and the system can record which librarian handled a loan or a request. My next step is to run the tests and deploy the website.
+
+Español: Hola. Mi proyecto se llama Biblioteca Córdoba. Es un sitio web de gestión bibliotecaria desarrollado con Python y Django. Administra lectores, libros, solicitudes de préstamo, préstamos, devoluciones y mensajes de soporte. La base de datos usa relaciones entre lectores, libros, préstamos y solicitudes. El bibliotecario tiene un inicio de sesión separado y el sistema puede registrar qué bibliotecario gestionó un préstamo o una solicitud. Mi próximo paso es ejecutar las pruebas y publicar el sitio web.
+
+Pronunciación aproximada por frases:
+Hello. = je-LÓU.
+My project is called Biblioteca Córdoba. = mai PRÓ-yekt is kold Biblioteca Córdoba.
+It is a library management website. = it is a LÁI-bre-ri MÁ-niych-ment UÉB-sait.
+It manages readers, books, loan requests, loans, returns, and support messages. = it MÁ-ni-yiz RÍ-ders, buks, loun ri-KUÉSTS, louns, ri-TÉRNS, and so-PÓRT MÉ-si-yiz.
+The database uses relationships between readers, books, loans, and requests. = de DÉI-ta-beis IÚ-siz ri-LÉI-shon-ships bi-TUÍN RÍ-ders, buks, louns, and ri-KUÉSTS.
+The librarian has a separate login. = de lai-BRÉ-ri-an jas a SÉ-pa-ret LÓ-guin.
+My next step is to run the tests and deploy the website. = mai nekst step is tu ran de tests and di-PLÓI de UÉB-sait.
+
+ACTIVIDAD 5 — PREGUNTAS Y RESPUESTAS (5 minutos)
+Q: What is a foreign key? = ¿Qué es una clave foránea?
+A: It connects one table to another table. = Conecta una tabla con otra.
+Pronunciación Q: uat is a FÓ-rin kí?
+Pronunciación A: it ko-NÉKTS uan TÉI-bol tu a-NÁ-der TÉI-bol.
+
+Q: Why does the librarian need a relationship in the database? = ¿Por qué el bibliotecario necesita una relación en la base de datos?
+A: To record who handled a loan or a request. = Para registrar quién gestionó un préstamo o una solicitud.
+Pronunciación Q: uái das de lai-BRÉ-ri-an nid a ri-LÉI-shon-ship in de DÉI-ta-beis?
+Pronunciación A: tu ri-KÓRD ju JÁN-dold a loun or a ri-KUÉST.
+
+REPASO FINAL (5 minutos)
+- Leé el vocabulario en voz alta dos veces.
+- Leé la presentación completa lentamente y luego a velocidad normal.
+- Tapá la traducción e intentá decir en español qué significa cada oración.
+- Grabate leyendo la presentación y comprobá que se entiendan las palabras clave.
+- La pronunciación aproximada sirve como apoyo inicial: escuchá audio real para mejorar los sonidos y el ritmo.

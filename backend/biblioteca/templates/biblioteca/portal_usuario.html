@@ -1,0 +1,255 @@
+{% extends 'biblioteca/base.html' %}
+{% load static %}
+{% block title %}Mi biblioteca · Biblioteca Córdoba{% endblock %}
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'biblioteca/css/portal_usuario.css' %}">
+{% endblock %}
+{% block content %}
+<section class="dashboard-hero page-heading">
+  <div>
+    <span class="eyebrow"><span class="status-dot"></span> ESPACIO DEL LECTOR</span>
+    <h1>Hola, <span class="gradient-text">{{ perfil.usuario.nombre }}</span></h1>
+    <p class="text-muted mb-0">Tus libros, solicitudes y comprobantes en un solo lugar.</p>
+  </div>
+  <div class="hero-actions">
+    <a class="btn btn-primary" href="#catalogo">Explorar libros ↓</a>
+  </div>
+</section>
+<div class="dashboard-grid stats-grid">
+  <a class="metric-card metric-indigo text-decoration-none" href="#mis-prestamos">
+    <div class="metric-top">
+      <span>Préstamos activos</span>
+      <span class="metric-icon">↗</span>
+    </div>
+    <div class="metric-value">{{ total_activos }}</div>
+    <div class="metric-caption">Ver mis préstamos</div>
+  </a>
+  <a class="metric-card metric-cyan text-decoration-none" href="#mis-solicitudes">
+    <div class="metric-top">
+      <span>Solicitudes</span>
+      <span class="metric-icon">◷</span>
+    </div>
+    <div class="metric-value">{{ solicitudes|length }}</div>
+    <div class="metric-caption">Ver seguimiento</div>
+  </a>
+</div>
+<section class="panel-card mt-4" id="mis-prestamos">
+  <div class="panel-heading">
+    <div>
+      <span class="eyebrow">TU ACTIVIDAD</span>
+      <h2>Mis préstamos</h2>
+    </div>
+  </div>
+  {% if prestamos %}
+    <div class="table-responsive">
+      <table class="table align-middle">
+        <thead>
+          <tr>
+            <th>Libro</th>
+            <th>Fecha</th>
+            <th>Estado</th>
+            <th>Comprobante</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for prestamo in prestamos %}
+          <tr>
+            <td>
+              <strong>{{ prestamo.libro_mostrado }}</strong>
+              <div class="small text-muted">{{ prestamo.libro_autor_historico }}</div>
+            </td>
+            <td>{{ prestamo.fecha_prestamo|date:'d/m/Y' }}</td>
+            <td>
+              <span class="badge rounded-pill {% if prestamo.estado == 'Activo' %}text-bg-primary{% else %}text-bg-success{% endif %}">
+                {{ prestamo.estado }}
+              </span>
+            </td>
+            <td>
+              <a class="btn btn-sm btn-outline-primary" href="{% url 'comprobante_usuario_pdf' prestamo.id_prestamo %}">Descargar PDF</a>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  {% else %}
+    <div class="empty-state">
+      <span>📚</span>
+      <h3>Todavía no tenés préstamos</h3>
+      <p>Explorá el catálogo y enviá una solicitud.</p>
+    </div>
+  {% endif %}
+</section>
+<section class="panel-card mt-4" id="catalogo">
+  <div class="panel-heading">
+    <div>
+      <span class="eyebrow">CATÁLOGO</span>
+      <h2>Libros disponibles</h2>
+    </div>
+    <span class="text-muted small">{{ libros|length }} disponibles</span>
+  </div>
+  <div class="reader-book-grid">
+    {% for libro in libros %}
+    <article class="reader-book-card">
+      {% if libro.portada %}
+        <img class="reader-book-cover" src="{{ libro.portada.url }}" alt="Portada de {{ libro.titulo }}" loading="lazy">
+      {% else %}
+        <div class="reader-book-cover cover-placeholder">
+          <span>📖</span>
+          <small>BIBLIOTECA CÓRDOBA</small>
+        </div>
+      {% endif %}
+      <div class="reader-book-info">
+        <span class="book-category">{{ libro.categoria }}</span>
+        <h3>{{ libro.titulo }}</h3>
+        <p>{{ libro.autor }}</p>
+        <small>{{ libro.editorial }} · {{ libro.anio }}</small>
+        <form method="post" action="{% url 'solicitar_libro' libro.id_libro %}">
+          {% csrf_token %}
+          <button class="btn btn-primary btn-sm w-100" type="submit">Solicitar libro <span>→</span></button>
+        </form>
+      </div>
+    </article>
+    {% empty %}
+    <div class="empty-state">
+      <span>🔎</span>
+      <h3>No hay libros disponibles ahora</h3>
+      <p>Volvé a consultar más tarde.</p>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+<section class="panel-card mt-4" id="mis-solicitudes">
+  <div class="panel-heading">
+    <div>
+      <span class="eyebrow">SEGUIMIENTO</span>
+      <h2>Mis solicitudes</h2>
+    </div>
+  </div>
+  {% if solicitudes %}
+    <div class="table-responsive">
+      <table class="table align-middle">
+        <thead>
+          <tr>
+            <th>Libro</th>
+            <th>Fecha</th>
+            <th>Estado</th>
+            <th>Nota</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for solicitud in solicitudes %}
+          <tr>
+            <td>{{ solicitud.libro.titulo }}</td>
+            <td>{{ solicitud.creada|date:'d/m/Y H:i' }}</td>
+            <td>{{ solicitud.estado }}</td>
+            <td>{{ solicitud.nota_bibliotecario|default:'—' }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  {% else %}
+    <p class="text-muted mb-0">Todavía no enviaste solicitudes.</p>
+  {% endif %}
+</section>
+<section class="panel-card mt-4" id="historial-soporte">
+  <div class="panel-heading">
+    <div>
+      <span class="eyebrow">ATENCIÓN</span>
+      <h2>Historial de casos de soporte</h2>
+    </div>
+  </div>
+  {% if casos_soporte %}
+    <div class="table-responsive">
+      <table class="table align-middle">
+        <thead>
+          <tr>
+            <th>Consulta</th>
+            <th>Fecha</th>
+            <th>Estado</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for caso in casos_soporte %}
+          <tr>
+            <td>
+              <strong>{{ caso.mensaje|truncatechars:110 }}</strong>
+              {% if caso.respuesta %}
+                <details class="mt-1">
+                  <summary>Ver conversación</summary>
+                  <p class="small text-muted mt-2 support-response">{{ caso.respuesta }}</p>
+                </details>
+              {% endif %}
+            </td>
+            <td>{{ caso.creado|date:'d/m/Y H:i' }}</td>
+            <td>
+              {% if caso.atendido %}
+                <span class="badge text-bg-secondary">Cerrado</span>
+              {% else %}
+                <span class="badge text-bg-success">Abierto</span>
+              {% endif %}
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  {% else %}
+    <p class="text-muted mb-0">Todavía no abriste casos de soporte.</p>
+  {% endif %}
+</section>
+<section class="chat-panel mt-4">
+  <div class="chat-header">
+    <div>
+      <span class="chat-orb">✦</span>
+      <div>
+        <strong>BiblioBot</strong>
+        <small>Asistente de Biblioteca Córdoba</small>
+      </div>
+    </div>
+    <span class="online-pill">● Disponible</span>
+  </div>
+  <div id="chatMessages" class="chat-messages" aria-live="polite">
+    <div class="chat-bubble bot-bubble">
+      ¡Hola! Soy BiblioBot. Puedo orientarte sobre el catálogo, las solicitudes y tus comprobantes. ¿En qué te ayudo?
+    </div>
+    {% for mensaje in chat_messages %}
+      <div class="chat-bubble user-bubble">{{ mensaje.mensaje }}</div>
+      {% if mensaje.respuesta %}
+        <div class="chat-bubble bot-bubble">{{ mensaje.respuesta }}</div>
+      {% endif %}
+    {% endfor %}
+  </div>
+  {% if ticket_actual %}
+    <div class="alert alert-info d-flex justify-content-between align-items-center flex-wrap gap-2">
+      <span>Hay un caso abierto. El chat automático está pausado, pero podés seguir agregando mensajes. El caso solo se cierra si vos o el bibliotecario lo cierran.</span>
+      <form method="post" action="{% url 'cerrar_caso_soporte_usuario' ticket_actual.pk %}">
+        {% csrf_token %}
+        <button class="btn btn-sm btn-outline-danger" type="submit">Cerrar mi caso</button>
+      </form>
+    </div>
+  {% endif %}
+  <form id="chatForm" class="chat-compose" data-chat-url="{% url 'chat_usuario' %}" data-handoff="{{ ticket_abierto|yesno:'true,false' }}">
+    {% csrf_token %}
+    <input 
+      id="chatInput" 
+      maxlength="1500" 
+      placeholder="{% if ticket_abierto %}Consulta derivada al bibliotecario{% else %}Escribí tu consulta...{% endif %}" 
+      aria-label="Tu consulta" 
+      required
+    >
+    <button class="btn btn-primary" type="submit">Enviar ↑</button>
+  </form>
+  <div class="chat-human-row">
+    <span>¿No se resuelve tu consulta?</span>
+    <button id="humanButton" class="btn btn-sm btn-outline-secondary" type="button" {% if ticket_abierto %}disabled{% endif %}>
+      {% if ticket_abierto %}Caso abierto{% else %}Hablar con una persona{% endif %}
+    </button>
+  </div>
+  <p id="chatStatus" class="small text-muted mb-0" role="status"></p>
+</section>
+{% endblock %}
+{% block extra_js %}
+  <script src="{% static 'biblioteca/js/portal_usuario.js' %}"></script>
+{% endblock %}

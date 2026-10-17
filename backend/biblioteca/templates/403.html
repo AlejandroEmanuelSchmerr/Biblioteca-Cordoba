@@ -1,0 +1,10 @@
+{% extends 'biblioteca/base.html' %}
+{% load static %}
+{% block content %}
+<div class="text-center py-5">
+  <div class="display-1">403</div>
+  <h2>Acceso no permitido</h2>
+  <p class="text-muted">No tenés permisos para realizar esta acción.</p>
+  <a href="{% url 'inicio' %}" class="btn btn-primary">Volver al inicio</a>
+</div>
+{% endblock %}

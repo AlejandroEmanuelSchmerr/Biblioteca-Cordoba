@@ -1,0 +1,59 @@
+BIBLIOTECA CÓRDOBA — EXPLICACIÓN COMPLETA Y GUION DE PRESENTACIÓN
+Fecha de actualización: 14/10/2026
+
+1. ¿QUÉ ES?
+Biblioteca Córdoba es una aplicación web desarrollada con Python y Django para organizar tareas de una biblioteca. Reúne el catálogo de libros, las fichas de lectores, los préstamos y las devoluciones. También incluye un portal para lectores, solicitudes de préstamo y un área de soporte con BiblioBot y posibilidad de atención humana.
+
+2. TECNOLOGÍAS Y ESTRUCTURA
+- Python: lenguaje principal.
+- Django: framework web, rutas, vistas, modelos, formularios, sesiones y administración.
+- HTML, CSS y JavaScript: interfaz de usuario y comportamiento del navegador.
+- ORM de Django: comunica los modelos con la base de datos. La configuración local puede usar SQLite; para producción se recomienda PostgreSQL.
+- Git y GitHub: control de versiones y publicación del código.
+- diagramas/: diagramas editables en formato Draw.io y fuentes Mermaid.
+- docs/ y requisitos_iniciales/: arquitectura, requisitos, casos de uso, reglas, pruebas y despliegue.
+
+3. ROLES
+LECTOR: se registra o inicia sesión, consulta el catálogo, ve sus propios préstamos, realiza solicitudes y consulta o crea mensajes de soporte.
+BIBLIOTECARIO: utiliza el acceso de personal y gestiona lectores, libros, préstamos, devoluciones y solicitudes, según los permisos implementados.
+SUPERUSUARIO: utiliza las herramientas administrativas de Django para tareas de administración autorizadas. No debe confundirse con el lector ni con el acceso propio del bibliotecario.
+
+Importante al presentar: el modelo Bibliotecario es una entidad separada, mientras que las cuentas de lectores usan la autenticación de Django y se vinculan a una ficha mediante PerfilBiblioteca. Describirlo como separación lógica de roles, no como bases de datos físicamente separadas.
+
+4. MODELOS DE DATOS
+Usuario: ficha de lector identificada por DNI, nombre, apellido, teléfono y correo. El correo ahora tiene límite de 50 caracteres.
+Libro: título, autor, editorial, año, categoría, portada opcional y estado. Estados previstos: Disponible, Prestado y Reservado.
+Prestamo: relaciona un lector con un libro y conserva fechas, estado y datos históricos para identificar al lector o libro aunque se elimine la ficha original.
+PerfilBiblioteca: relaciona una cuenta autenticada de Django con la ficha de lector.
+SolicitudPrestamo: registra una solicitud de lector para un libro, con estado Pendiente, Aprobada o Rechazada.
+MensajeSoporte: almacena el mensaje, respuesta, solicitud de atención humana y estado de atención.
+Bibliotecario: guarda el usuario de acceso del personal, datos básicos y contraseña almacenada como hash cuando se utiliza set_password.
+
+5. REGLA CLAVE DE PRÉSTAMOS
+Un libro solo puede prestarse si está Disponible y no tiene un préstamo activo. Al registrar el préstamo, se crea un Prestamo con estado Activo y el libro pasa a Prestado. Si no cumple las condiciones, se rechaza la operación y se informa el motivo. Al devolverlo, se registra la fecha de devolución y el préstamo queda Devuelto; el libro puede volver a Disponible si no existe otro préstamo activo. El bibliotecario no debe cambiar manualmente el estado de un libro mientras haya un préstamo activo.
+
+6. CORREO ELECTRÓNICO — CAMBIO DEL 14/10/2026
+Los campos de correo del lector y del bibliotecario se limitan a 50 caracteres. Se actualizan modelo, formularios, atributo maxlength y migración 0009. Antes de migrar una base existente, revisar si ya hay direcciones de más de 50 caracteres y corregirlas cuidadosamente con una copia de seguridad. No reducir datos silenciosamente.
+
+7. CÓMO PRESENTARLO ORALMENTE (60–90 SEGUNDOS)
+“Mi proyecto se llama Biblioteca Córdoba. Es una aplicación web que desarrollé con Python y Django para organizar la gestión de una biblioteca. Permite administrar libros y lectores, registrar préstamos y devoluciones, y mantener un historial de operaciones. También incorpora un portal para lectores con consulta de catálogo, solicitudes y soporte. Una regla importante es que un libro no puede prestarse si ya está prestado, y su estado no debe modificarse manualmente mientras tenga un préstamo activo. Trabajé con modelos y relaciones de base de datos, formularios con validaciones, vistas, plantillas y control de versiones con Git. Como siguientes pasos, estoy verificando pruebas, documentación y despliegue para publicarlo de manera segura.”
+
+8. PREGUNTAS FRECUENTES
+¿Qué problema resuelve? Centraliza los datos y reduce el registro manual de libros, lectores y préstamos.
+¿Por qué Django? Porque ofrece una estructura clara para rutas, vistas, formularios, modelos, validación y administración.
+¿Qué fue difícil? Coordinar las relaciones de datos y asegurar que las reglas del préstamo se respeten en las distintas operaciones.
+¿Qué mejorarías? Ampliar pruebas automatizadas, revisar accesibilidad, reforzar seguridad y monitorización, y validar el despliegue en producción.
+¿Está publicado? Si todavía no se desplegó, decir: “Está desarrollado localmente y estoy preparando su publicación”. No afirmar que está online hasta probar una URL pública real.
+
+9. ANTES DE MOSTRARLO
+- Ejecutar `python manage.py check`.
+- Ejecutar `python manage.py test`.
+- Ejecutar `python manage.py makemigrations --check --dry-run` para detectar cambios de modelos no migrados.
+- Hacer copia de seguridad de la base de datos.
+- Aplicar `python manage.py migrate` después de revisar datos existentes.
+- Probar alta y edición de lector, correo mayor a 50 caracteres, préstamo, bloqueo de estado con préstamo activo, devolución, solicitudes y soporte.
+- No subir `.env`, contraseñas, claves SMTP ni datos personales reales al repositorio público.
+- Para producción: `DEBUG=False`, `ALLOWED_HOSTS`, HTTPS, variables de entorno, base de datos de producción, archivos estáticos/media y correo SMTP configurado si se usa.
+
+10. LÍMITES Y HONESTIDAD
+Este documento describe los modelos y flujos observados en el código empaquetado. No implica que todas las pruebas hayan pasado ni que el sistema ya esté desplegado. La validación final debe hacerse en el entorno local con dependencias instaladas.

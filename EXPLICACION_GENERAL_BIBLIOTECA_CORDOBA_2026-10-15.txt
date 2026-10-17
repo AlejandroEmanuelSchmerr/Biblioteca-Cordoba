@@ -1,0 +1,56 @@
+BIBLIOTECA CÓRDOBA — EXPLICACIÓN GENERAL PARA ESTUDIAR Y PRESENTAR
+Fecha: jueves 15 de octubre de 2026
+
+1. ¿QUÉ ES?
+Biblioteca Córdoba es una aplicación web de gestión bibliotecaria desarrollada con Python y Django. Busca centralizar el catálogo de libros, las fichas de lectores, las solicitudes, los préstamos, las devoluciones y la comunicación de soporte. La versión local debe probarse antes de afirmar que está lista para producción.
+
+2. TECNOLOGÍAS
+- Python: lenguaje de programación usado en la lógica del servidor.
+- Django: framework web que organiza URLs, vistas, formularios, modelos, autenticación, administración y acceso a la base de datos.
+- HTML/CSS/JavaScript: estructura, estilos e interacciones de las páginas.
+- ORM de Django: permite consultar y guardar registros mediante modelos Python.
+- diagrams.net / Mermaid: documentación visual de arquitectura, flujo y datos.
+
+3. ROLES
+LECTOR: inicia sesión con una cuenta Django vinculada mediante PerfilBiblioteca a una ficha Usuario. Puede consultar el catálogo, presentar solicitudes y revisar su información y soporte.
+BIBLIOTECARIO: usa una identidad propia guardada en la tabla Bibliotecario y una sesión independiente. Gestiona usuarios, libros, préstamos, devoluciones, solicitudes y soporte según las vistas protegidas.
+SUPERUSUARIO: usa la autenticación de Django y el panel /admin/ para administración técnica. No es lo mismo que la cuenta independiente de bibliotecario.
+
+4. MODELOS Y RELACIONES
+Usuario guarda DNI y datos de contacto del lector. Libro guarda información bibliográfica y estado. Prestamo relaciona un usuario y un libro; conserva copias históricas para que el historial siga siendo comprensible si se elimina un registro vinculado. PerfilBiblioteca vincula una cuenta AUTH_USER con una ficha Usuario. SolicitudPrestamo relaciona un usuario y un libro y registra estado y respuesta. MensajeSoporte pertenece a una cuenta AUTH_USER y conserva el diálogo y estado del caso. Bibliotecario almacena las credenciales independientes del personal.
+
+Para poder identificar al personal que gestionó operaciones, se agregan tres referencias opcionales desde Prestamo, SolicitudPrestamo y MensajeSoporte hacia Bibliotecario. Así el diagrama representa conexiones con sentido de auditoría. No todas las tablas necesitan conectarse directamente con todas las demás: las relaciones deben corresponder a dependencias reales.
+
+5. REGLAS IMPORTANTES
+- DNI: ocho dígitos según la validación del proyecto.
+- Email de Usuario y Bibliotecario: máximo 50 caracteres. La longitud también depende de validación/formulario y migración aplicada.
+- Nombre y apellido del lector: máximo 50 caracteres.
+- Teléfono: hasta 12 dígitos según validación.
+- Libro: título 150, autor 100, editorial 100 y categoría 100 caracteres.
+- Solicitud: nota de bibliotecario hasta 300 caracteres.
+- Mensaje de soporte: mensaje hasta 1500 y respuesta almacenada hasta 3000 en el campo principal; si se concatenan muchas respuestas, hay que comprobar el límite efectivo antes de producción.
+- Un libro con préstamo Activo no debe pasar a Disponible manualmente. Primero se marca el préstamo como Devuelto; después se actualiza el libro.
+- Una solicitud aprobada debe comprobar de nuevo la disponibilidad del libro.
+
+6. ¿CÓMO EXPLICAR EL ENTIDAD-RELACIÓN?
+La PK (primary key o clave primaria) identifica de forma única un registro. La FK (foreign key o clave foránea) referencia otra tabla. Uno a muchos significa que un lector puede tener varios préstamos; cada préstamo se vincula como máximo a un lector actual. En Prestamo, las referencias a Usuario y Libro permiten NULL para preservar el historial si el registro relacionado se elimina, y por eso se guardan campos históricos. Las relaciones opcionales con Bibliotecario permiten registrar quién atendió la operación sin invalidar datos antiguos.
+
+7. GUION CORTO PARA EXPONER
+“Hola, mi proyecto se llama Biblioteca Córdoba. Es una aplicación web de gestión bibliotecaria desarrollada con Python y Django. Permite administrar libros y lectores, registrar préstamos y devoluciones, gestionar solicitudes y mantener conversaciones de soporte. Organicé el proyecto con modelos, formularios, vistas, plantillas y rutas. También documenté los requisitos, la arquitectura, los flujos y las relaciones de la base de datos. Como siguiente etapa estoy ejecutando las pruebas finales y preparando el despliegue.”
+
+8. PREGUNTAS COMUNES
+¿Qué problema resuelve? Centraliza información y reduce tareas manuales de registro y seguimiento.
+¿Por qué Django? Porque ofrece estructura web, formularios, ORM, autenticación y panel administrativo.
+¿Qué es una migración? Un archivo versionado que aplica cambios de estructura de modelos a la base de datos.
+¿Qué falta antes de publicar? Ejecutar `python manage.py check`, `python manage.py makemigrations --check --dry-run`, pruebas, revisar variables de entorno, DEBUG=False, ALLOWED_HOSTS, HTTPS, base de datos de producción y archivos estáticos.
+¿Está completamente probado? No debe afirmarse hasta ejecutar las pruebas en el entorno con dependencias instaladas.
+
+9. COMANDOS DE VERIFICACIÓN
+Desde backend:
+python manage.py migrate
+python manage.py check
+python manage.py makemigrations --check --dry-run
+python manage.py test
+
+10. CONSEJO DE PUBLICACIÓN
+No subir .env, contraseñas, claves SMTP, tokens ni datos reales de usuarios a GitHub. Usar variables de entorno, PostgreSQL para producción y copias de seguridad. Probar login, permisos, préstamos, devolución, solicitudes y soporte desde una instalación limpia.

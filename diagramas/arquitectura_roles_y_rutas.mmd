@@ -1,0 +1,18 @@
+flowchart LR
+    L[Lector] --> R[/registro/ y /login/]
+    R --> P[Portal del lector]
+    P --> C[Catálogo y solicitudes]
+    P --> H[Préstamos y comprobantes propios]
+    P --> S[Historial de soporte]
+    B[Bibliotecario] --> BL[/bibliotecario/login/]
+    BL --> G[Panel bibliotecario]
+    G --> U[Gestión de usuarios y libros]
+    G --> PR[Préstamos y devoluciones]
+    G --> SO[Solicitudes y soporte]
+    A[Superusuario Django] --> AD[/admin/]
+    R -. cuenta Django vinculada .-> DB[(PerfilBiblioteca + Usuario)]
+    G -. identidad propia .-> BI[(Bibliotecario)]
+    P --> ORM[Views / Forms / ORM Django]
+    G --> ORM
+    AD --> ORM
+    ORM --> DATA[(Base de datos)]

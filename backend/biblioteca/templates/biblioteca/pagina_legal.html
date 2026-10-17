@@ -1,0 +1,14 @@
+{% extends 'biblioteca/base.html' %}
+{% load static %}
+{% block title %}{{ titulo_legal }} · Biblioteca Córdoba{% endblock %}
+{% block content %}
+<main class="panel-card legal-page">
+  <span class="eyebrow">BIBLIOTECA CÓRDOBA · PROYECTO PERSONAL</span>
+  <h1>{{ titulo_legal }}</h1>
+  <p>{{ contenido_legal }}</p>
+  <p class="text-muted small">
+    Última revisión de texto: 12/10/2026. 
+    Este texto es una plantilla informativa, no asesoramiento jurídico ni garantía de cumplimiento legal.
+  </p>
+</main>
+{% endblock %}

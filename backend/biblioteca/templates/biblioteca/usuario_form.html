@@ -1,0 +1,65 @@
+{% extends 'biblioteca/base.html' %}
+{% load static %}
+{% block title %}{% if usuario %}Editar usuario{% else %}Nuevo usuario{% endif %} · Biblioteca Córdoba{% endblock %}
+{% block content %}
+<div class="page-heading">
+  <div>
+    <span class="eyebrow">GESTIÓN DE PERSONAS</span>
+    <h1>{% if usuario %}Editar usuario{% else %}Nuevo usuario{% endif %}</h1>
+    <p class="text-muted mb-0">
+      {% if usuario %}
+        Actualizá los datos registrados de la persona.
+      {% else %}
+        Completá los datos para registrar una persona en la biblioteca.
+      {% endif %}
+    </p>
+  </div>
+  <a href="{% url 'usuario_lista' %}" class="btn btn-secondary">← Volver a usuarios</a>
+</div>
+<div class="form-shell">
+  <div class="form-aside">
+    <div class="form-aside-icon">♙</div>
+    <span class="eyebrow">FICHA DE USUARIO</span>
+    <h2>Datos claros, gestión simple.</h2>
+    <p>Revisá la información antes de guardar. El DNI debe tener exactamente 8 números y no admite letras.</p>
+    <div class="aside-tip">
+      <span>✦</span>
+      <span>Los campos se validan antes de guardar para ayudar a mantener el registro correcto.</span>
+    </div>
+  </div>
+  <div class="form-main">
+    <form method="post" novalidate>
+      {% csrf_token %}
+      {% if form.non_field_errors %}
+        <div class="alert alert-danger">{{ form.non_field_errors }}</div>
+      {% endif %}
+      <div class="form-fields-grid">
+        {% for field in form %}
+          <div class="field-wrap field-{{ field.name }} {% if field.errors %}field-invalid{% endif %}">
+            <label class="form-label" for="{{ field.id_for_label }}">
+              {{ field.label }}
+              {% if field.field.required %}<span class="required-mark">*</span>{% endif %}
+            </label>
+            {{ field }}
+            {% if field.help_text %}
+              <small class="field-help">{{ field.help_text }}</small>
+            {% endif %}
+            {% if field.errors %}
+              <div class="field-error">{{ field.errors|striptags }}</div>
+            {% endif %}
+          </div>
+        {% endfor %}
+      </div>
+      <div class="form-footer">
+        <span class="required-note">* Campos obligatorios</span>
+        <div class="d-flex gap-2">
+          <a href="{% url 'usuario_lista' %}" class="btn btn-secondary">Cancelar</a>
+          <button type="submit" class="btn btn-primary">
+            {% if usuario %}Guardar cambios{% else %}Crear usuario{% endif %} <span>→</span>
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

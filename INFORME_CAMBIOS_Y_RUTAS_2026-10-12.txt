@@ -1,0 +1,45 @@
+BIBLIOTECA CÓRDOBA — INFORME DE CAMBIOS Y RUTAS
+Fecha: 12/10/2026
+
+LECTOR
+- /registro/ registra la cuenta de lector.
+- /login/ acceso del lector.
+- /mi-cuenta/ portal personal. Las tarjetas de préstamos activos y solicitudes llevan a sus secciones.
+- /mi-cuenta/solicitar/<id>/ solicita un libro.
+- /mi-cuenta/prestamos/<id>/comprobante.pdf genera comprobante personal.
+- /mi-cuenta/soporte/<id>/cerrar/ cierra el propio caso abierto.
+
+BIBLIOTECARIO
+- /bibliotecario/login/ acceso separado.
+- / es el panel interno cuando hay sesión válida de bibliotecario.
+- /bibliotecario/solicitudes/ procesa solicitudes.
+- /bibliotecario/soporte/ bandeja de casos humanos. Responder no cierra el caso; hay botón separado para cerrarlo.
+- /bibliotecario/soporte/<id>/cerrar/ cierra explícitamente un caso.
+
+SUPERUSUARIO
+- /admin/ acceso al Django Admin. Crear el superusuario con `python manage.py createsuperuser`. Las cuentas del lector y del bibliotecario no son credenciales intercambiables.
+
+CHAT Y SOPORTE
+- Si un lector deriva la consulta a una persona, el ticket queda abierto. Mensajes adicionales se añaden al caso y no se envían a BiblioBot mientras siga abierto. El bibliotecario puede responder varias veces; el cierre requiere una acción explícita del lector o del bibliotecario.
+- En esta implementación los mensajes se acumulan en campos de texto por compatibilidad con el esquema actual. Para producción se recomienda una tabla normalizada con una fila por mensaje, autor y fecha para un historial auditable.
+- BiblioBot ofrece una respuesta local sobre las funciones del proyecto. Para respuestas generativas hace falta configurar BIBLIOTECA_AI_API_KEY, endpoint y modelo; no se debe presentar la respuesta local como IA generativa.
+
+PÁGINAS INFORMATIVAS
+- /privacidad/ · /terminos/ · /cookies/ · /reembolsos/. Los textos son borradores y requieren revisión legal contextualizada.
+
+INSTALACIÓN Y PRUEBAS (PowerShell desde backend)
+py -m venv venv
+.\venv\Scripts\Activate.ps1
+python -m pip install -r ..\requirements.txt
+python manage.py migrate
+python manage.py check
+python manage.py test
+python manage.py check --deploy
+python -m pip_audit
+
+SEGURIDAD Y CUMPLIMIENTO
+- Limitar email a 254 caracteres; EmailField aplica el límite y valida el formato. Revisar límites de cada formulario/modelo y repetir validación en servidor.
+- No existe una promesa honesta de “cero vulnerabilidades” o de evitar toda multa. Antes de publicar: revisar jurisdicción y responsable de datos, base legal, derechos de titulares, conservación, cookies, consentimiento, SMTP, proveedor IA, analítica y demás terceros.
+- Cookies técnicas de sesión/CSRF son funcionales. Si se agregan cookies no esenciales o analítica, evaluar consentimiento previo según la ley aplicable. No hay pagos en la versión actual; por eso no hay reembolsos que procesar.
+- No enviar datos personales innecesarios a la IA. No guardar secretos en Git. Confirmar HTTPS, DEBUG=False, ALLOWED_HOSTS, backups y permisos.
+- No se ejecutó la suite Django en este entorno. Ejecutar todos los tests localmente antes de publicar.

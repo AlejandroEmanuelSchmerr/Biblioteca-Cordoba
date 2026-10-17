@@ -1,0 +1,31 @@
+{% extends 'biblioteca/base.html' %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-5 col-lg-4">
+        <div class="card shadow-sm mt-5">
+            <div class="card-body p-4">
+                <h2 class="text-center mb-4">🔐 Iniciar sesión</h2>
+
+                <form method="post">
+                    {% csrf_token %}
+
+                    <div class="mb-3">
+                        <label for="username" class="form-label">DNI del lector</label>
+                        <input type="text" name="username" id="username" class="form-control" maxlength="150" autocomplete="username" required autofocus>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Contraseña</label>
+                        <input type="password" name="password" id="password" class="form-control" required>
+                    </div>
+
+                    <button type="submit" class="btn btn-dark w-100">Iniciar sesión</button>
+                </form>
+                <p class="text-center mt-3 mb-0">¿Sos lector? <a href="{% url 'registro_usuario' %}">Creá tu cuenta</a></p>
+                <p class="text-center mt-2 mb-0"><a href="{% url 'password_reset' %}">¿Olvidaste tu contraseña?</a></p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

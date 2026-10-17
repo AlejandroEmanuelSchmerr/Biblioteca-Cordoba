@@ -1,0 +1,80 @@
+<?xml version='1.0' encoding='utf-8'?>
+<mxfile host="app.diagrams.net" modified="2026-10-15T14:00:00.000Z" agent="ChatGPT" version="24.7.17" type="device">
+  <diagram id="FlujoCompletoFinal" name="Flujo Completo Final">
+    <mxGraphModel dx="1200" dy="800" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1550" pageHeight="1150" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="start" value="INICIO" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#edf0f3;strokeColor=#64748b;fontColor=#172033;fontSize=14;align=left;verticalAlign=top;spacing=10;arcSize=10;" vertex="1" parent="1">
+          <mxGeometry x="520" y="20" width="180" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="role" value="¿Tipo de acceso?" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff3d6;strokeColor=#64748b;fontColor=#172033;fontSize=14;align=left;verticalAlign=top;spacing=10;arcSize=10;" vertex="1" parent="1">
+          <mxGeometry x="470" y="130" width="280" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="reader" value="LECTOR&#10;Registro / login&#10;Perfil vinculado a Usuario" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e8f0ff;strokeColor=#64748b;fontColor=#172033;fontSize=14;align=left;verticalAlign=top;spacing=10;arcSize=10;" vertex="1" parent="1">
+          <mxGeometry x="40" y="280" width="300" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="libportal" value="Portal lector&#10;Catálogo / búsqueda&#10;Solicitar préstamo&#10;Ver préstamos propios / soporte" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e8f0ff;strokeColor=#64748b;fontColor=#172033;fontSize=14;align=left;verticalAlign=top;spacing=10;arcSize=10;" vertex="1" parent="1">
+          <mxGeometry x="40" y="500" width="300" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="staff" value="BIBLIOTECARIO&#10;Login de personal independiente" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e8f7ec;strokeColor=#64748b;fontColor=#172033;fontSize=14;align=left;verticalAlign=top;spacing=10;arcSize=10;" vertex="1" parent="1">
+          <mxGeometry x="460" y="280" width="300" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="staffops" value="Gestión&#10;Usuarios · libros · solicitudes&#10;Registrar préstamo · devolver&#10;Responder/cerrar soporte" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e8f7ec;strokeColor=#64748b;fontColor=#172033;fontSize=14;align=left;verticalAlign=top;spacing=10;arcSize=10;" vertex="1" parent="1">
+          <mxGeometry x="460" y="490" width="300" height="190" as="geometry" />
+        </mxCell>
+        <mxCell id="admin" value="SUPERUSUARIO&#10;Django Admin&#10;Gestión técnica autorizada" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#edf0f3;strokeColor=#64748b;fontColor=#172033;fontSize=14;align=left;verticalAlign=top;spacing=10;arcSize=10;" vertex="1" parent="1">
+          <mxGeometry x="890" y="280" width="280" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="decision" value="¿Libro disponible&#10;y sin préstamo activo?" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff3d6;strokeColor=#64748b;fontColor=#172033;fontSize=14;align=left;verticalAlign=top;spacing=10;arcSize=10;" vertex="1" parent="1">
+          <mxGeometry x="480" y="740" width="280" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="loan" value="Crear Prestamo&#10;Guardar bibliotecario_registra&#10;Cambiar Libro a Prestado" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e8f7ec;strokeColor=#64748b;fontColor=#172033;fontSize=14;align=left;verticalAlign=top;spacing=10;arcSize=10;" vertex="1" parent="1">
+          <mxGeometry x="360" y="890" width="300" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="reject" value="No crear préstamo&#10;Informar que no está disponible" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fce7f3;strokeColor=#64748b;fontColor=#172033;fontSize=14;align=left;verticalAlign=top;spacing=10;arcSize=10;" vertex="1" parent="1">
+          <mxGeometry x="720" y="890" width="300" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="return" value="Devolución&#10;Cerrar préstamo como Devuelto&#10;Luego cambiar libro a Disponible" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff3d6;strokeColor=#64748b;fontColor=#172033;fontSize=14;align=left;verticalAlign=top;spacing=10;arcSize=10;" vertex="1" parent="1">
+          <mxGeometry x="1130" y="500" width="300" height="160" as="geometry" />
+        </mxCell>
+        <mxCell id="support" value="Soporte humano&#10;Guardar respuesta y bibliotecario_responde&#10;Cerrar caso de forma explícita" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fce7f3;strokeColor=#64748b;fontColor=#172033;fontSize=14;align=left;verticalAlign=top;spacing=10;arcSize=10;" vertex="1" parent="1">
+          <mxGeometry x="1130" y="740" width="320" height="170" as="geometry" />
+        </mxCell>
+        <mxCell id="e0" value="entra" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#64748b;fontSize=12;labelBackgroundColor=#ffffff;" edge="1" parent="1" source="start" target="role">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e1" value="lector" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#64748b;fontSize=12;labelBackgroundColor=#ffffff;" edge="1" parent="1" source="role" target="reader">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e2" value="bibliotecario" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#64748b;fontSize=12;labelBackgroundColor=#ffffff;" edge="1" parent="1" source="role" target="staff">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e3" value="superusuario" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#64748b;fontSize=12;labelBackgroundColor=#ffffff;" edge="1" parent="1" source="role" target="admin">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e4" value="accede" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#64748b;fontSize=12;labelBackgroundColor=#ffffff;" edge="1" parent="1" source="reader" target="libportal">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e5" value="gestiona" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#64748b;fontSize=12;labelBackgroundColor=#ffffff;" edge="1" parent="1" source="staff" target="staffops">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e6" value="nuevo préstamo" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#64748b;fontSize=12;labelBackgroundColor=#ffffff;" edge="1" parent="1" source="staffops" target="decision">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e7" value="Sí" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#64748b;fontSize=12;labelBackgroundColor=#ffffff;" edge="1" parent="1" source="decision" target="loan">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e8" value="No" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#64748b;fontSize=12;labelBackgroundColor=#ffffff;" edge="1" parent="1" source="decision" target="reject">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e9" value="devolución" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#64748b;fontSize=12;labelBackgroundColor=#ffffff;" edge="1" parent="1" source="staffops" target="return">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e10" value="soporte" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#64748b;fontSize=12;labelBackgroundColor=#ffffff;" edge="1" parent="1" source="staffops" target="support">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

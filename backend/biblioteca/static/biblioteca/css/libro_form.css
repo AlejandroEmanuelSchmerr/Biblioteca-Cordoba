@@ -1,0 +1,32 @@
+
+.cover-editor {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.cover-editor__info {
+  flex: 1;
+  min-width: 200px;
+}
+
+.form-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.year-calendar-field .form-text {
+  font-size: .82rem;
+}
+
+.book-form-page .card-header h4 {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#cover-preview-wrap {
+  flex-shrink: 0;
+}

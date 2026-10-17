@@ -1,0 +1,26 @@
+{% extends "biblioteca/base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="card border-danger">
+        <div class="card-header bg-danger text-white">
+            <h4>Confirmar Eliminación</h4>
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">¿Estás seguro de que querés eliminar al usuario {{ usuario.nombre }} {{ usuario.apellido }}?</h5>
+            
+            <p class="card-text">
+                Estás por eliminar permanentemente al usuario con DNI: <strong>{{ usuario.dni }}</strong><br>
+                Email: {{ usuario.email }}<br><br>
+                <span class="text-danger">Si tiene préstamos activos, primero tenés que registrar la devolución. Los préstamos ya devueltos conservarán su historial aunque elimines al usuario.</span>
+            </p>
+
+            <form method="POST">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger">🗑️ Sí, Eliminar</button>
+                <a href="{% url 'usuario_lista' %}" class="btn btn-secondary">Cancelar</a>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,86 @@
+INGLÉS — MIÉRCOLES 14/10/2026
+Tema: explicar un proyecto de programación en inglés
+Duración sugerida: 45 minutos
+Estado del material: actividades resueltas para estudiar y practicar en voz alta
+
+NOTA DE PRONUNCIACIÓN
+La pronunciación escrita “como español” es una aproximación para empezar; no representa todos los sonidos del inglés. La sílaba en MAYÚSCULAS indica dónde apoyar la voz. La “th” de “the/this” se practica poniendo suavemente la lengua entre los dientes; si al principio cuesta, escuchá el audio de un diccionario y repetí.
+
+ACTIVIDAD 1 — VOCABULARIO (10 minutos)
+1. Library = biblioteca. Pronunciación aproximada: LÁI-bre-ri.
+2. Book = libro. Pronunciación: buk.
+3. Reader = lector/a. Pronunciación: RÍ-der.
+4. Librarian = bibliotecario/a. Pronunciación: lai-BRÉ-ri-an.
+5. Loan = préstamo. Pronunciación: loun.
+6. Return = devolver / devolución. Pronunciación: ri-TÉRN.
+7. Database = base de datos. Pronunciación: DÉI-ta-beis (también se oye DÁ-ta-beis).
+8. Website = sitio web. Pronunciación: UÉB-sait.
+9. I built = construí/desarrollé. Pronunciación: ai bilt.
+10. I used = utilicé. Pronunciación: ai iúzd.
+
+ACTIVIDAD 2 — GRAMÁTICA: PRESENT SIMPLE Y PAST SIMPLE (10 minutos)
+Presente simple: se usa para explicar qué hace el sistema o para qué sirve.
+- The system manages books. = El sistema administra libros. Pronunciación: de SÍS-tem MÁ-ni-yiz buks.
+- Readers can view their loans. = Los lectores pueden ver sus préstamos. Pronunciación: RÍ-ders can viú der louns.
+- The librarian records returns. = El bibliotecario registra devoluciones. Pronunciación: de lai-BRÉ-ri-an ri-KÓRDS ri-TÉRNS.
+Pasado simple: se usa para contar lo que hiciste durante el desarrollo.
+- I built a library management system. = Desarrollé un sistema de gestión bibliotecaria. Pronunciación: ai bilt a LÁI-bre-ri MÁ-niych-ment SÍS-tem.
+- I used Python and Django. = Utilicé Python y Django. Pronunciación: ai iúzd PÁI-zon and YÁN-gou.
+- I created forms and models. = Creé formularios y modelos. Pronunciación: ai kri-ÉI-tid forms and MÓ-dels.
+
+ACTIVIDAD 3 — COMPLETAR ORACIONES (RESPUESTAS) (5 minutos)
+1. My project is called Biblioteca Córdoba.
+   Mi proyecto se llama Biblioteca Córdoba.
+   Pronunciación: mai PRÓ-yekt is kold Biblioteca Córdoba.
+2. I used Python and Django.
+   Utilicé Python y Django.
+   Pronunciación: ai iúzd PÁI-zon and YÁN-gou.
+3. The website manages books and loans.
+   El sitio web administra libros y préstamos.
+   Pronunciación: de UÉB-sait MÁ-ni-yiz buks and louns.
+4. A reader can request a loan.
+   Un lector puede solicitar un préstamo.
+   Pronunciación: a RÍ-der can ri-KUÉST a loun.
+5. The librarian records the return.
+   El bibliotecario registra la devolución.
+   Pronunciación: de lai-BRÉ-ri-an ri-KÓRDS de ri-TÉRN.
+
+ACTIVIDAD 4 — PRESENTAR EL PROYECTO EN INGLÉS (10 minutos)
+Texto: “Hello. My project is called Biblioteca Córdoba. It is a library management website. I built it with Python and Django. It manages books, readers, loans, and returns. Readers can check the catalog and submit loan requests. The librarian manages the collection and records returns. I also worked on forms, database models, validation, and documentation. My next step is to test the application and deploy it online.”
+
+Traducción: “Hola. Mi proyecto se llama Biblioteca Córdoba. Es un sitio web de gestión bibliotecaria. Lo desarrollé con Python y Django. Administra libros, lectores, préstamos y devoluciones. Los lectores pueden consultar el catálogo y enviar solicitudes de préstamo. El bibliotecario administra la colección y registra las devoluciones. También trabajé en formularios, modelos de base de datos, validaciones y documentación. Mi próximo paso es probar la aplicación y publicarla en internet.”
+
+Pronunciación aproximada por partes:
+Hello. = je-LÓU.
+My project is called Biblioteca Córdoba. = mai PRÓ-yekt is kold Biblioteca Córdoba.
+It is a library management website. = it is a LÁI-bre-ri MÁ-niych-ment UÉB-sait.
+I built it with Python and Django. = ai bilt it uiz PÁI-zon and YÁN-gou.
+It manages books, readers, loans, and returns. = it MÁ-ni-yiz buks, RÍ-ders, louns, and ri-TÉRNS.
+Readers can check the catalog and submit loan requests. = RÍ-ders can chek de KÁ-ta-log and sob-MIT loun ri-KUÉSTS.
+The librarian manages the collection and records returns. = de lai-BRÉ-ri-an MÁ-ni-yiz de ko-LÉK-shon and ri-KÓRDS ri-TÉRNS.
+I also worked on forms, database models, validation, and documentation. = ai ÓL-sou uerkt on forms, DÉI-ta-beis MÓ-dels, va-li-DÉI-shon, and do-kiu-men-TÉI-shon.
+My next step is to test the application and deploy it online. = mai nekst step is tu test di a-pli-KÉI-shon and di-PLÓI it on-LÁIN.
+
+ACTIVIDAD 5 — PREGUNTAS Y RESPUESTAS (5 minutos)
+Q: What is your project about? (¿De qué trata tu proyecto?)
+A: It is a library management website. (Es un sitio web de gestión bibliotecaria.)
+Pronunciación Q: uat is yor PRÓ-yekt a-BÁUT?
+Pronunciación A: it is a LÁI-bre-ri MÁ-niych-ment UÉB-sait.
+
+Q: Which technologies did you use? (¿Qué tecnologías utilizaste?)
+A: I used Python, Django, HTML, CSS, and JavaScript.
+Pronunciación Q: uich tek-NÓ-lo-yis did iu iúz?
+Pronunciación A: ai iúzd PÁI-zon, YÁN-gou, eich-ti-em-el, si-es-es, and YÁ-va-script.
+
+Q: What was the most important rule? (¿Cuál fue la regla más importante?)
+A: A book cannot be loaned if it already has an active loan.
+Pronunciación: a buk KÁ-not bi lound if it ol-RÉ-di jas an ÁK-tiv loun.
+
+REPASO FINAL — HECHO
+- Vocabulario: 10 palabras del proyecto.
+- Gramática: presente simple para describir funciones y pasado simple para contar lo realizado.
+- Escritura: 5 oraciones completas.
+- Speaking: presentación de 8 frases, dividida en segmentos.
+- Preguntas de entrevista: 3 preguntas con respuestas.
+
+Consejo: leé cada oración primero en inglés, luego mirá la traducción y finalmente repetila tres veces sin mirar. Para mejorar la pronunciación real, compará tu voz con audio de un diccionario fiable; la guía fonética en español solo sirve como apoyo inicial.

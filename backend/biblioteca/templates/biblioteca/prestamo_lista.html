@@ -1,0 +1,94 @@
+{% extends 'biblioteca/base.html' %}
+{% load static %}
+{% block content %}
+<div class="page-heading">
+  <div>
+    <h1>📋 Préstamos</h1>
+    <p class="text-muted mb-0">Controlá los préstamos activos y las devoluciones</p>
+  </div>
+  <a href="{% url 'prestamo_historial' %}" class="btn btn-outline-secondary">Ver historial de devueltos</a>
+</div>
+<div class="card shadow-sm mb-4">
+  <div class="card-body">
+    <form method="GET" action="{% url 'prestamo_lista' %}" class="row g-3 align-items-end">
+      <div class="col-md-5">
+        <label class="form-label">Buscar por usuario o libro</label>
+        <input type="text" name="q" value="{{ query }}" class="form-control" placeholder="Ej: Alejandro o Clean Code">
+      </div>
+      <div class="col-md-3">
+        <label class="form-label">Estado</label>
+        <select name="estado" class="form-select">
+          <option value="">Todos</option>
+          <option value="Activo" {% if estado_filtro == 'Activo' %}selected{% endif %}>Activos</option>
+          <option value="Devuelto" {% if estado_filtro == 'Devuelto' %}selected{% endif %}>Devueltos</option>
+        </select>
+      </div>
+      <div class="col-md-4 d-flex gap-2">
+        <button type="submit" class="btn btn-primary">Buscar</button>
+        <a href="{% url 'prestamo_lista' %}" class="btn btn-secondary">Limpiar</a>
+        <a href="{% url 'prestamo_nuevo' %}" class="btn btn-success ms-auto">+ Nuevo</a>
+      </div>
+    </form>
+  </div>
+</div>
+<div class="card shadow">
+  <div class="card-body">
+    <div class="table-responsive">
+      <table class="table table-striped table-hover table-bordered align-middle">
+        <thead class="table-dark text-center">
+          <tr>
+            <th>Usuario</th>
+            <th>DNI</th>
+            <th>Libro</th>
+            <th>Fecha préstamo</th>
+            <th>Fecha devolución</th>
+            <th>Estado / devolución</th>
+            <th>Comprobante</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for prestamo in prestamos %}
+          <tr>
+            <td data-label="Usuario">{{ prestamo.usuario_mostrado }}</td>
+            <td data-label="DNI">
+              {% if prestamo.dni_id %}
+                {{ prestamo.dni.dni }}
+              {% else %}
+                {{ prestamo.usuario_dni_historico|default:'-' }}
+              {% endif %}
+            </td>
+            <td data-label="Libro">{{ prestamo.libro_mostrado }}</td>
+            <td data-label="Fecha préstamo">{{ prestamo.fecha_prestamo|date:'d/m/Y' }}</td>
+            <td data-label="Fecha devolución">
+              {% if prestamo.fecha_devolucion %}
+                {{ prestamo.fecha_devolucion|date:'d/m/Y' }}
+              {% else %}
+                -
+              {% endif %}
+            </td>
+            <td data-label="Estado / devolución" class="text-center">
+              {% if prestamo.estado == 'Activo' %}
+                <span class="badge bg-danger">Activo</span>
+                <form method="post" action="{% url 'prestamo_devolver' prestamo.id_prestamo %}" class="d-inline ms-2">
+                  {% csrf_token %}
+                  <button type="submit" class="btn btn-sm btn-warning">↩ Devolver</button>
+                </form>
+              {% else %}
+                <span class="badge bg-secondary">Devuelto</span>
+              {% endif %}
+            </td>
+            <td data-label="Comprobante" class="text-center">
+              <a class="btn btn-sm btn-outline-primary" href="{% url 'prestamo_comprobante_pdf' prestamo.id_prestamo %}">PDF</a>
+            </td>
+          </tr>
+          {% empty %}
+          <tr>
+            <td colspan="7" class="text-center text-muted py-4">No se encontraron préstamos.</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock %}

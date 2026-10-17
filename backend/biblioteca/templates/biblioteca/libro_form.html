@@ -1,0 +1,84 @@
+{% extends 'biblioteca/base.html' %}
+{% load static %}
+{% block title %}{% if libro %}Editar libro{% else %}Nuevo libro{% endif %} · Biblioteca Córdoba{% endblock %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'biblioteca/css/libro_form.css' %}">
+{% endblock %}
+{% block content %}
+<div class="page-heading">
+  <div>
+    <h1>{% if libro %}✏ Editar libro{% else %}📚 Agregar un libro{% endif %}</h1>
+    <p class="text-muted">Completá los datos y agregá una portada para reconocerlo más fácil</p>
+  </div>
+  <a href="{% url 'libro_lista' %}" class="btn btn-secondary">← Volver al catálogo</a>
+</div>
+<div class="container book-form-page">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-header">
+          <h4>{% if libro %}{{ libro.titulo }}{% else %}Datos del libro{% endif %}</h4>
+        </div>
+        <div class="card-body">
+          <form method="POST" enctype="multipart/form-data" novalidate>
+            {% csrf_token %}
+            <div class="cover-editor mb-4">
+              <div id="cover-preview-wrap">
+                {% if libro and libro.portada %}
+                  <img id="cover-preview" class="book-preview" src="{{ libro.portada.url }}" alt="Portada actual de {{ libro.titulo }}">
+                {% else %}
+                  <div id="cover-preview" class="book-preview-placeholder" role="img" aria-label="Sin portada">📘</div>
+                {% endif %}
+              </div>
+              <div class="cover-editor__info">
+                <h5 class="mb-2">Portada del libro</h5>
+                <p class="text-muted small">Elegí una imagen JPG, PNG o WEBP de hasta 5 MB. Al seleccionar una imagen vas a ver una vista previa.</p>
+              </div>
+            </div>
+            {% for field in form %}
+              {% if field.name == 'anio_calendario' %}
+                <div class="mb-3 year-calendar-field">
+                  <label for="{{ field.id_for_label }}" class="form-label">Fecha de publicación (opcional)</label>
+                  {{ field }}
+                  <div class="form-text">Podés escribir la fecha o elegirla con el calendario. Al guardar se registra el año.</div>
+                  {% if field.errors %}<div class="text-danger small mt-1">{{ field.errors }}</div>{% endif %}
+                </div>
+              {% elif field.name == 'editorial_otra' or field.name == 'categoria_otra' %}
+                <div class="mb-3 d-none" id="wrap-{{ field.name }}">
+                  <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
+                  {{ field }}
+                  {% if field.errors %}<div class="text-danger small mt-1">{{ field.errors }}</div>{% endif %}
+                </div>
+              {% elif field.name == 'anio' %}
+                <div class="mb-3 year-field">
+                  <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
+                  <div class="year-input-row">
+                    {{ field }}
+                    <button class="calendar-trigger" type="button" id="open-year-calendar" title="Abrir calendario" aria-label="Abrir calendario">▦</button>
+                  </div>
+                  {% if field.errors %}<div class="text-danger small mt-1">{{ field.errors }}</div>{% endif %}
+                </div>
+              {% else %}
+                <div class="mb-3">
+                  <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
+                  {{ field }}
+                  {% if field.help_text %}<div class="form-text">{{ field.help_text }}</div>{% endif %}
+                  {% if field.errors %}<div class="text-danger small mt-1">{{ field.errors }}</div>{% endif %}
+                </div>
+              {% endif %}
+            {% endfor %}
+            {% if form.non_field_errors %}<div class="alert alert-danger">{{ form.non_field_errors }}</div>{% endif %}
+            <div class="form-actions">
+              <button type="submit" class="btn btn-primary">{% if libro %}Guardar cambios{% else %}Guardar libro{% endif %}</button>
+              <a href="{% url 'libro_lista' %}" class="btn btn-secondary">Cancelar</a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+{% block extra_js %}
+<script src="{% static 'biblioteca/js/libro_form.js' %}"></script>
+{% endblock %}

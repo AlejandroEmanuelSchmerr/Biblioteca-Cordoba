@@ -1,0 +1,36 @@
+{% extends 'biblioteca/base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-7">
+            <div class="card shadow border-danger">
+                <div class="card-header bg-danger text-white text-center">
+                    <h4 class="mb-0">Eliminar Libro</h4>
+                </div>
+                <div class="card-body text-center">
+                    <h5 class="mb-3">¿Está seguro que desea eliminar este libro?</h5>
+                    <p class="text-muted">Esta acción no se puede deshacer. Si tiene préstamos activos, primero tenés que registrar la devolución. Los préstamos ya devueltos conservarán su historial aunque elimines el libro.</p>
+
+                    <ul class="list-group text-start my-4">
+                        <li class="list-group-item"><strong>Título:</strong> {{ libro.titulo }}</li>
+                        <li class="list-group-item"><strong>Autor:</strong> {{ libro.autor }}</li>
+                        <li class="list-group-item"><strong>Categoría:</strong> {{ libro.categoria }}</li>
+                        <li class="list-group-item"><strong>Editorial:</strong> {{ libro.editorial }}</li>
+                        <li class="list-group-item"><strong>Estado:</strong> {{ libro.estado }}</li>
+                        <li class="list-group-item"><strong>Año:</strong> {{ libro.anio }}</li>
+                    </ul>
+
+                    <form method="POST">
+                        {% csrf_token %}
+                        <div class="d-flex justify-content-center gap-3">
+                            <a href="{% url 'libro_lista' %}" class="btn btn-secondary px-4">Cancelar</a>
+                            <button type="submit" class="btn btn-danger px-4">Eliminar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

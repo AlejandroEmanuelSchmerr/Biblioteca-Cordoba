@@ -1,0 +1,16 @@
+{% extends 'admin/base.html' %}
+{% load static %}
+{% block title %}{{ title }} | Biblioteca Córdoba{% endblock %}
+{% block branding %}
+<div class="bc-brand">
+  <span class="bc-mark">BC</span>
+  <span>
+    <strong>Biblioteca Córdoba</strong>
+    <small>Administración del sistema</small>
+  </span>
+</div>
+{% endblock %}
+{% block extrastyle %}
+{{ block.super }}
+<link rel="stylesheet" href="{% static 'biblioteca/admin-biblioteca.css' %}">
+{% endblock %}

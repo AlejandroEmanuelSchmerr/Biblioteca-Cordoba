@@ -1,0 +1,50 @@
+{% extends 'admin/base_site.html' %}
+{% load i18n static %}
+{% block content %}
+<section class="bc-welcome">
+  <div>
+    <p class="bc-eyebrow">CENTRO DE CONTROL</p>
+    <h1>¡Bienvenido al panel de administración!</h1>
+    <p>Gestioná los datos de Biblioteca Córdoba desde un único lugar.</p>
+  </div>
+  <div class="bc-welcome-mark">BC</div>
+</section>
+<div class="bc-stats">
+  <div class="bc-stat"><strong>{{ total_usuarios }}</strong><span>Usuarios</span></div>
+  <div class="bc-stat"><strong>{{ total_libros }}</strong><span>Libros totales</span></div>
+  <div class="bc-stat"><strong>{{ libros_disponibles }}</strong><span>Disponibles</span></div>
+  <div class="bc-stat"><strong>{{ prestamos_activos }}</strong><span>Préstamos activos</span></div>
+  <div class="bc-stat warn"><strong>{{ solicitudes_pendientes }}</strong><span>Solicitudes pendientes</span></div>
+  <div class="bc-stat warn"><strong>{{ mensajes_pendientes }}</strong><span>Soporte sin atender</span></div>
+</div>
+{% if app_list %}
+  {% for app in app_list %}
+    <div class="module">
+      <table>
+        <caption>{{ app.name }}</caption>
+        {% for model in app.models %}
+        <tr>
+          <th scope="row">
+            {% if model.admin_url %}
+              <a href="{{ model.admin_url }}">{{ model.name }}</a>
+            {% else %}
+              {{ model.name }}
+            {% endif %}
+          </th>
+          <td>
+            {% if model.add_url %}
+              <a href="{{ model.add_url }}">{% translate "Add" %}</a>
+            {% endif %}
+          </td>
+          <td>
+            {% if model.admin_url %}
+              <a href="{{ model.admin_url }}">{% translate "View" %}</a>
+            {% endif %}
+          </td>
+        </tr>
+        {% endfor %}
+      </table>
+    </div>
+  {% endfor %}
+{% endif %}
+{% endblock %}

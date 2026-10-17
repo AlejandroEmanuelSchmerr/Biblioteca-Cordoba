@@ -1,0 +1,43 @@
+# Entornos virtuales
+backend/venv/
+venv/
+.venv/
+**/venv/
+**/.venv/
+
+# Variables de entorno y secretos
+.env
+.env.*
+!.env.example
+**/.env
+**/.env.*
+!**/.env.example
+*.pem
+*.key
+secrets/
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+
+# Base de datos local y logs
+*.sqlite3
+*.db
+*.log
+
+# Archivos generados o subidos localmente
+media/
+**/media/
+staticfiles/
+**/staticfiles/
+
+# Editores
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db

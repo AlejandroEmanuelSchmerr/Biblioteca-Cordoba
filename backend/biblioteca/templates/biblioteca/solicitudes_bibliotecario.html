@@ -1,0 +1,57 @@
+{% extends 'biblioteca/base.html' %}
+{% load static %}
+{% block title %}Solicitudes de lectores · Biblioteca Córdoba{% endblock %}
+{% block content %}
+<section class="page-heading">
+  <span class="eyebrow">GESTIÓN DE LECTORES</span>
+  <h1>Solicitudes de préstamo</h1>
+  <p class="text-muted">Aprobá o rechazá pedidos. Al aprobar, se registra el préstamo y se marca el libro como prestado.</p>
+</section>
+<div class="panel-card">
+  {% if solicitudes %}
+    <div class="table-responsive">
+      <table class="table align-middle">
+        <thead>
+          <tr>
+            <th>Lector</th>
+            <th>Libro</th>
+            <th>Fecha</th>
+            <th>Estado</th>
+            <th>Acción</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for s in solicitudes %}
+          <tr>
+            <td>
+              {{ s.usuario.nombre }} {{ s.usuario.apellido }}
+              <div class="small text-muted">DNI terminado en {{ s.usuario.dni|slice:'-2:' }}</div>
+            </td>
+            <td>{{ s.libro.titulo }}</td>
+            <td>{{ s.creada|date:'d/m/Y H:i' }}</td>
+            <td>{{ s.estado }}</td>
+            <td>
+              {% if s.estado == 'Pendiente' %}
+                <form method="post" action="{% url 'responder_solicitud' s.pk %}" class="d-flex gap-2">
+                  {% csrf_token %}
+                  <button name="accion" value="aprobar" class="btn btn-sm btn-primary">Aprobar</button>
+                  <button name="accion" value="rechazar" class="btn btn-sm btn-outline-danger">Rechazar</button>
+                </form>
+              {% else %}
+                —
+              {% endif %}
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  {% else %}
+    <div class="empty-state">
+      <span>📬</span>
+      <h3>No hay solicitudes</h3>
+      <p>Los pedidos nuevos aparecerán acá.</p>
+    </div>
+  {% endif %}
+</div>
+{% endblock %}

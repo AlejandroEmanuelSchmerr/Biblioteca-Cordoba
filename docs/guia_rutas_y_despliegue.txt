@@ -1,0 +1,44 @@
+BIBLIOTECA CÓRDOBA — GUÍA DE RUTAS Y DESPLIEGUE
+Fecha: 12/10/2026
+
+RUTAS DEL LECTOR
+- /registro/ : crear cuenta de lector y verificar correo.
+- /login/ : inicio de sesión del lector.
+- /mi-cuenta/ : portal personal, préstamos, catálogo, solicitudes y chat.
+- /mi-cuenta/solicitar/<id>/ : solicitar libro (POST).
+- /mi-cuenta/prestamos/<id>/comprobante.pdf : comprobante individual del lector.
+- /mi-cuenta/soporte/<id>/cerrar/ : cerrar su propio caso de soporte (POST).
+- /recuperar-contrasena/ : recuperar contraseña por correo.
+
+RUTAS DEL BIBLIOTECARIO
+- /bibliotecario/login/ : acceso de personal independiente.
+- / : dashboard de personal cuando existe sesión autorizada.
+- /usuarios/ y /usuarios/nuevo/ : gestión de fichas.
+- /libros/ y /libros/nuevo/ : catálogo.
+- /prestamos/ y /prestamos/nuevo/ : préstamos y devoluciones.
+- /bibliotecario/solicitudes/ : aprobar/rechazar solicitudes.
+- /bibliotecario/soporte/ : bandeja de soporte; responder no cierra el caso, el cierre es explícito.
+
+ADMINISTRADOR PRINCIPAL
+- /admin/ : Django Admin para el superusuario; nunca usar una cuenta de lector como bibliotecario.
+
+PÁGINAS INFORMATIVAS
+- /privacidad/ · /terminos/ · /cookies/ · /reembolsos/
+Estos textos son borradores y requieren revisión jurídica según país, jurisdicción, responsable real y servicios usados.
+
+ARRANQUE LOCAL EN POWERSHELL (desde backend)
+1. py -m venv venv
+2. .\venv\Scripts\Activate.ps1
+3. python -m pip install -r ..\requirements.txt
+4. python manage.py migrate
+5. python manage.py check
+6. python manage.py test
+7. python manage.py createsuperuser (solo si todavía no existe)
+8. python manage.py runserver
+
+ANTES DE PUBLICAR
+- Configurar DJANGO_SECRET_KEY, DJANGO_DEBUG=False, ALLOWED_HOSTS, HTTPS, SMTP y credenciales como variables secretas del proveedor.
+- Configurar BIBLIOTECA_AI_API_KEY solo si se habilita proveedor de IA; nunca incluir claves en Git.
+- Ejecutar tests, check --deploy, pip-audit y pruebas manuales de permisos/roles.
+- Revisar el proveedor de hosting, backups, correo, IA, analítica y cookies. No se puede garantizar “cero vulnerabilidades” ni ausencia de multas.
+- La IA debe presentarse claramente como IA. No enviar datos sensibles innecesarios al proveedor.

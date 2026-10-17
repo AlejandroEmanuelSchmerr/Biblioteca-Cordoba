@@ -1,0 +1,100 @@
+{% extends 'biblioteca/base.html' %}
+{% load static %}
+{% block title %}Catálogo de libros · Biblioteca Córdoba{% endblock %}
+{% block content %}
+<div class="page-heading">
+  <div>
+    <h1>📚 Catálogo de libros</h1>
+    <p class="text-muted">Buscá, filtrá y administrá las portadas de tu biblioteca</p>
+  </div>
+  <a href="{% url 'libro_nuevo' %}" class="btn btn-primary">＋ Agregar libro</a>
+</div>
+<div class="card mb-4">
+  <div class="card-body">
+    <form method="GET" action="{% url 'libro_lista' %}" class="row g-3 align-items-end">
+      <div class="col-md-5">
+        <label class="form-label" for="book-search">Buscar libro</label>
+        <input id="book-search" type="text" name="q" value="{{ query }}" class="form-control" placeholder="Título, autor o categoría">
+      </div>
+      <div class="col-md-3">
+        <label class="form-label" for="book-status">Estado</label>
+        <select id="book-status" name="estado" class="form-select">
+          <option value="">Todos los estados</option>
+          <option value="Disponible" {% if estado_filtro == 'Disponible' %}selected{% endif %}>Disponible</option>
+          <option value="Prestado" {% if estado_filtro == 'Prestado' %}selected{% endif %}>Prestado</option>
+          <option value="Reservado" {% if estado_filtro == 'Reservado' %}selected{% endif %}>Reservado</option>
+        </select>
+      </div>
+      <div class="col-md-4 d-flex gap-2">
+        <button type="submit" class="btn btn-primary">⌕ Buscar</button>
+        <a href="{% url 'libro_lista' %}" class="btn btn-secondary">Limpiar</a>
+      </div>
+    </form>
+  </div>
+</div>
+<div class="card">
+  <div class="card-body">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <div>
+        <h2 class="mb-0">Todos los libros</h2>
+        <p class="text-muted mb-0">{{ libros|length }} resultado(s)</p>
+      </div>
+    </div>
+    <div class="table-responsive">
+      <table class="table table-striped align-middle">
+        <thead>
+          <tr>
+            <th>Portada</th>
+            <th>Título</th>
+            <th>Autor</th>
+            <th>Categoría</th>
+            <th>Editorial</th>
+            <th>Año</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for libro in libros %}
+          <tr>
+            <td data-label="Portada">
+              {% if libro.portada %}
+                <img class="book-cover-thumb" src="{{ libro.portada.url }}" alt="Portada de {{ libro.titulo }}" loading="lazy">
+              {% else %}
+                <div class="book-cover-placeholder" role="img" aria-label="Sin portada">📘</div>
+              {% endif %}
+            </td>
+            <td data-label="Título"><strong>{{ libro.titulo }}</strong></td>
+            <td data-label="Autor">{{ libro.autor }}</td>
+            <td data-label="Categoría"><span class="badge bg-secondary">{{ libro.categoria }}</span></td>
+            <td data-label="Editorial">{{ libro.editorial }}</td>
+            <td data-label="Año">{{ libro.anio }}</td>
+            <td data-label="Estado">
+              {% if libro.estado == 'Disponible' %}
+                <span class="badge bg-success">{{ libro.estado }}</span>
+              {% elif libro.estado == 'Prestado' %}
+                <span class="badge bg-warning">{{ libro.estado }}</span>
+              {% else %}
+                <span class="badge bg-secondary">{{ libro.estado }}</span>
+              {% endif %}
+            </td>
+            <td data-label="Acciones">
+              <div class="d-flex gap-2">
+                <a href="{% url 'libro_editar' libro.id_libro %}" class="btn btn-sm btn-outline-primary">✎ Editar</a>
+                <a href="{% url 'libro_eliminar' libro.id_libro %}" class="btn btn-sm btn-danger">Eliminar</a>
+              </div>
+            </td>
+          </tr>
+          {% empty %}
+          <tr>
+            <td colspan="8" class="text-center text-muted py-4">
+              No encontramos libros con esos filtros. Probá otra búsqueda o agregá un libro.
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,53 @@
+{% extends 'biblioteca/base.html' %}
+{% load static %}
+{% block title %}Acceso de bibliotecario · Biblioteca Córdoba{% endblock %}
+{% block content %}
+<section class="auth-wrap">
+  <div class="auth-card">
+    <div class="auth-brand">
+      <span class="auth-mark">BC</span>
+      <span>
+        <b>Biblioteca Córdoba</b>
+        <small>Acceso de personal autorizado</small>
+      </span>
+    </div>
+    <p class="eyebrow mt-4">ÁREA PROFESIONAL</p>
+    <h1>Ingresar como bibliotecario</h1>
+    <p class="text-muted">
+      Esta cuenta debe haber sido creada y autorizada por el administrador del sistema.
+    </p>
+    <form method="post" class="modern-form">
+      {% csrf_token %}
+      <div class="field-wrap">
+        <label class="form-label" for="username">Usuario de bibliotecario</label>
+        <input 
+          class="form-control" 
+          type="text" 
+          name="username" 
+          id="username" 
+          maxlength="150" 
+          autocomplete="username" 
+          required 
+          autofocus
+        >
+      </div>
+      <div class="field-wrap">
+        <label class="form-label" for="password">Contraseña</label>
+        <input 
+          class="form-control" 
+          type="password" 
+          name="password" 
+          id="password" 
+          autocomplete="current-password" 
+          required
+        >
+      </div>
+      <button class="btn btn-primary w-100 mt-3" type="submit">
+        Ingresar al panel <span>→</span>
+      </button>
+    </form>
+    <p class="auth-bottom">Este acceso es exclusivo para personal autorizado.</p>
+    <p class="privacy-note">El acceso de administrador principal se realiza desde Django Admin.</p>
+  </div>
+</section>
+{% endblock %}

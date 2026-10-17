@@ -1,0 +1,10 @@
+{% extends 'biblioteca/base.html' %}
+{% load static %}
+{% block content %}
+<div class="text-center py-5">
+  <div class="display-1">500</div>
+  <h2>Error interno</h2>
+  <p class="text-muted">Ocurrió un problema al procesar la solicitud. No se muestra información técnica por seguridad.</p>
+  <a href="{% url 'inicio' %}" class="btn btn-primary">Volver al inicio</a>
+</div>
+{% endblock %}

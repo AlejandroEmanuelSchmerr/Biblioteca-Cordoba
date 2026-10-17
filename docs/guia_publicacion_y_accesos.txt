@@ -1,0 +1,48 @@
+BIBLIOTECA CÓRDOBA — GUÍA DE RUTAS Y PUBLICACIÓN
+Actualizada: 13/10/2026
+
+RUTAS LOCALES
+- Página pública: http://127.0.0.1:8000/
+- Registro de lector: http://127.0.0.1:8000/registro/
+- Inicio de sesión del lector: http://127.0.0.1:8000/login/
+- Portal privado del lector: http://127.0.0.1:8000/mi-cuenta/
+- Inicio de sesión de bibliotecario: http://127.0.0.1:8000/bibliotecario/login/
+- Panel del bibliotecario: http://127.0.0.1:8000/bibliotecario/
+- Bandeja de soporte: http://127.0.0.1:8000/bibliotecario/soporte/
+- Administración Django del superusuario: http://127.0.0.1:8000/admin/
+
+Las URLs anteriores son locales; en producción se reemplazan por el dominio publicado. No hay credenciales universales incluidas en el ZIP: crear cuentas desde el flujo de registro o por el procedimiento administrativo previsto. No compartir credenciales en documentación ni GitHub.
+
+PROBAR EN WINDOWS / POWERSHELL
+Desde la carpeta Biblioteca-2026/backend:
+  py -m venv venv
+  .\venv\Scripts\Activate.ps1
+  python -m pip install --upgrade pip
+  python -m pip install -r ..\requirements.txt
+  python manage.py migrate
+  python manage.py check
+  python manage.py test
+  python manage.py createsuperuser
+  python manage.py runserver
+
+BASE DE DATOS SQL
+En local puede usarse SQLite para desarrollo. Para producción, configurar PostgreSQL con variables de entorno DB_ENGINE, DB_NAME, DB_USER, DB_PASSWORD, DB_HOST y DB_PORT (consultar config/settings.py y .env.example). No guardar la contraseña en código, no subir .env a GitHub y crear un usuario SQL con permisos mínimos. Hacer backup y probar recuperación.
+
+PUBLICACIÓN EN INTERNET
+1. Revisar el repositorio y quitar datos personales, archivos .env, contraseñas, tokens, bases de datos reales y archivos privados.
+2. Subir el código a GitHub usando .gitignore.
+3. Elegir un proveedor que ejecute Django y ofrezca PostgreSQL. Crear una base PostgreSQL y cargar variables de entorno desde el panel del proveedor.
+4. En la consola de despliegue ejecutar instalación de requirements, migraciones, collectstatic y crear superusuario.
+5. Configurar dominio, ALLOWED_HOSTS, CSRF_TRUSTED_ORIGINS, DEBUG=False, HTTPS, cookies seguras, SMTP y almacenamiento de imágenes/media.
+6. Ejecutar python manage.py check --deploy, python manage.py test y auditoría de dependencias. Probar registro, activación por email, recuperación, roles, aislamiento de datos, solicitudes, comprobantes y soporte desde cuentas distintas.
+7. Un dominio .com normalmente se paga. Algunos proveedores ofrecen subdominios gratuitos; disponibilidad y condiciones cambian.
+
+BIBLIOTECARIO Y LECTOR
+El lector se registra en /registro/ y entra por /login/. El bibliotecario entra por /bibliotecario/login/ con una cuenta creada/autorizada mediante el flujo administrativo. El superusuario administra el sistema por /admin/. No se incluyen contraseñas de prueba por seguridad; crear las cuentas en el entorno propio.
+
+IA, COOKIES Y RESPONSABILIDAD
+BiblioBot tiene respuestas por palabras clave locales. Las respuestas de IA externa requieren configurar BIBLIOTECA_AI_API_KEY y otros ajustes de proveedor. La IA puede equivocarse y no reemplaza a una persona. Publicar una nota de transparencia sobre IA y describir el proveedor/uso real.
+No se puede prometer que el sitio sea invulnerable ni garantizar que nunca haya multas. La aplicación de leyes depende de la actividad real, jurisdicción, datos recogidos, analíticas, cookies y terceros. Revisar normativa argentina de protección de datos y consumidores con asesoría profesional antes de publicar a usuarios reales. Si se añaden analíticas/cookies no esenciales, revisar la necesidad de consentimiento y mecanismo de rechazo. No inventar certificaciones ni afirmaciones legales.
+
+ESTADO DE PRUEBAS
+La compilación sintáctica de Python se verificó en el entorno de preparación. La suite de Django no se ejecutó contra la configuración local real de quien recibe este ZIP; debe ejecutarse en su PC con python manage.py test. No afirmar que todos los tests pasan hasta ver el resultado.

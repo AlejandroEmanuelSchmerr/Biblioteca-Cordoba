@@ -1,0 +1,173 @@
+{% extends 'biblioteca/base.html' %}
+{% load static %}
+{% block title %}Panel de control · Biblioteca Córdoba{% endblock %}
+{% block content %}
+<section class="dashboard-hero page-heading">
+  <div>
+    <span class="eyebrow">
+      <span class="status-dot"></span> PANEL DE CONTROL
+    </span>
+    <h1>
+      Tu biblioteca, <span class="gradient-text">bajo control.</span>
+    </h1>
+    <p class="text-muted mb-0">
+      Un resumen claro de tu catálogo, tus usuarios y la actividad de préstamos.
+    </p>
+  </div>
+  <div class="hero-actions">
+    <a href="{% url 'prestamo_nuevo' %}" class="btn btn-primary">＋ Registrar préstamo</a>
+    <a href="{% url 'libro_nuevo' %}" class="btn btn-glass">＋ Añadir libro</a>
+  </div>
+</section>
+<div class="dashboard-grid stats-grid">
+  <article class="metric-card metric-indigo">
+    <div class="metric-top">
+      <span>Usuarios registrados</span>
+      <span class="metric-icon">♙</span>
+    </div>
+    <div class="metric-value" data-count="{{ total_usuarios }}">
+      {{ total_usuarios }}
+    </div>
+    <div class="metric-bottom">
+      <span class="metric-caption">Personas en el sistema</span>
+      <a href="{% url 'usuario_lista' %}" aria-label="Ver usuarios">↗</a>
+    </div>
+  </article>
+  <article class="metric-card metric-cyan">
+    <div class="metric-top">
+      <span>Libros en catálogo</span>
+      <span class="metric-icon">▤</span>
+    </div>
+    <div class="metric-value" data-count="{{ total_libros }}">
+      {{ total_libros }}
+    </div>
+    <div class="metric-bottom">
+      <span class="metric-caption">Títulos registrados</span>
+      <a href="{% url 'libro_lista' %}" aria-label="Ver libros">↗</a>
+    </div>
+  </article>
+  <article class="metric-card metric-green">
+    <div class="metric-top">
+      <span>Préstamos activos</span>
+      <span class="metric-icon">⇄</span>
+    </div>
+    <div class="metric-value" data-count="{{ prestamos_activos }}">
+      {{ prestamos_activos }}
+    </div>
+    <div class="metric-bottom">
+      <span class="metric-caption">Pendientes de devolución</span>
+      <a href="{% url 'prestamo_lista' %}?estado=Activo" aria-label="Ver préstamos activos">↗</a>
+    </div>
+  </article>
+  <article class="metric-card metric-amber">
+    <div class="metric-top">
+      <span>Devoluciones</span>
+      <span class="metric-icon">✓</span>
+    </div>
+    <div class="metric-value" data-count="{{ prestamos_historicos }}">
+      {{ prestamos_historicos }}
+    </div>
+    <div class="metric-bottom">
+      <span class="metric-caption">Préstamos finalizados</span>
+      <a href="{% url 'prestamo_historial' %}" aria-label="Ver historial">↗</a>
+    </div>
+  </article>
+</div>
+<div class="dashboard-grid dashboard-main-grid">
+  <section class="panel-card inventory-panel">
+    <div class="panel-heading">
+      <div>
+        <span class="eyebrow">ESTADO DEL CATÁLOGO</span>
+        <h2>Disponibilidad de libros</h2>
+      </div>
+      <a href="{% url 'libro_lista' %}" class="text-link">
+        Ver catálogo <span>↗</span>
+      </a>
+    </div>
+    <div class="inventory-total">
+      <strong>{{ total_libros }}</strong>
+      <span>libros registrados</span>
+    </div>
+    <div class="inventory-row">
+      <div class="inventory-label">
+        <span><i class="legend-dot dot-green"></i>Libros disponibles</span>
+        <strong>{{ libros_disponibles }} <small>{{ porcentaje_disponibles }}%</small></strong>
+      </div>
+      <div class="progress-track">
+        <span class="progress-fill fill-green" style="width:{{ porcentaje_disponibles }}%"></span>
+      </div>
+    </div>
+    <div class="inventory-row">
+      <div class="inventory-label">
+        <span><i class="legend-dot dot-blue"></i>Prestados</span>
+        <strong>{{ libros_prestados }} <small>{{ porcentaje_prestados }}%</small></strong>
+      </div>
+      <div class="progress-track">
+        <span class="progress-fill fill-blue" style="width:{{ porcentaje_prestados }}%"></span>
+      </div>
+    </div>
+    <div class="inventory-row">
+      <div class="inventory-label">
+        <span><i class="legend-dot dot-amber"></i>Reservados</span>
+        <strong>{{ libros_reservados }} <small>{{ porcentaje_reservados }}%</small></strong>
+      </div>
+      <div class="progress-track">
+        <span class="progress-fill fill-amber" style="width:{{ porcentaje_reservados }}%"></span>
+      </div>
+    </div>
+    <div class="panel-note">
+      Los indicadores se actualizan automáticamente con los datos guardados.
+    </div>
+  </section>
+  <section class="panel-card shortcuts-panel">
+    <div class="panel-heading">
+      <div>
+        <span class="eyebrow">ACCESO RÁPIDO</span>
+        <h2>¿Qué querés hacer?</h2>
+      </div>
+    </div>
+    <a class="shortcut-row" href="{% url 'usuario_nuevo' %}">
+      <span class="shortcut-icon icon-purple">♙</span>
+      <span class="shortcut-copy">
+        <strong>Registrar usuario</strong>
+        <small>Agregar una persona al sistema</small>
+      </span>
+      <span class="shortcut-arrow">↗</span>
+    </a>
+    <a class="shortcut-row" href="{% url 'libro_nuevo' %}">
+      <span class="shortcut-icon icon-blue">▤</span>
+      <span class="shortcut-copy">
+        <strong>Agregar libro</strong>
+        <small>Completar ficha y portada</small>
+      </span>
+      <span class="shortcut-arrow">↗</span>
+    </a>
+    <a class="shortcut-row" href="{% url 'prestamo_nuevo' %}">
+      <span class="shortcut-icon icon-green">⇄</span>
+      <span class="shortcut-copy">
+        <strong>Nuevo préstamo</strong>
+        <small>Asignar un libro disponible</small>
+      </span>
+      <span class="shortcut-arrow">↗</span>
+    </a>
+    <a class="shortcut-row" href="{% url 'prestamo_historial' %}">
+      <span class="shortcut-icon icon-amber">◷</span>
+      <span class="shortcut-copy">
+        <strong>Consultar historial</strong>
+        <small>Revisar préstamos anteriores</small>
+      </span>
+      <span class="shortcut-arrow">↗</span>
+    </a>
+  </section>
+</div>
+<section class="bottom-banner">
+  <div>
+    <span class="banner-mark">BC</span>
+    <div>
+      <strong>Biblioteca Córdoba</strong>
+      <p>Organización simple. Información a mano. Mejor gestión.</p>
+    </div>
+  </div>
+  <span class="banner-tag">PROYECTO PERSONAL · 2026</span>
+</section>
+{% endblock %}

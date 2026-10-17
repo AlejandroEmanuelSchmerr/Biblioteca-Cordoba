@@ -1,0 +1,10 @@
+{% extends 'biblioteca/base.html' %}
+{% load static %}
+{% block content %}
+<div class="text-center py-5">
+  <div class="display-1">404</div>
+  <h2>Página no encontrada</h2>
+  <p class="text-muted">Lo sentimos, la página que buscás no existe o la dirección es incorrecta.</p>
+  <a href="{% url 'inicio' %}" class="btn btn-primary">Volver al inicio</a>
+</div>
+{% endblock %}

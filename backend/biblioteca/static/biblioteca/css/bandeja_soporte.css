@@ -1,0 +1,12 @@
+.support-response {
+  white-space: pre-wrap;
+}
+
+.support-ticket {
+  padding: 20px 0;
+  border-bottom: 1px solid #edf0f6;
+}
+
+.support-ticket:last-child {
+  border-bottom: 0;
+}
