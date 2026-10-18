@@ -96,20 +96,25 @@ if os.environ.get('DATABASE_URL'):
             ssl_require=True
         )
     }
-elif os.environ.get('DB_ENGINE', 'sqlite').lower() == 'postgres':
-    # TU CONFIGURACION ANTERIOR (por si usas DB_*)
-    DATABASES = {'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environ.get('DB_NAME', ''),
-        'USER': os.environ.get('DB_USER', ''),
-        'PASSWORD': os.environ.get('DB_PASSWORD', ''),
-        'HOST': os.environ.get('DB_HOST', ''),
-        'PORT': os.environ.get('DB_PORT', '5432'),
-        'CONN_MAX_AGE': 60,
-        'OPTIONS': {'sslmode': os.environ.get('DB_SSLMODE', 'require')},
-    }}
+
+DATABASE_URL = os.environ.get('DATABASE_URL')
+if DATABASE_URL:
+    # PRODUCCION - DockHosting PostgreSQL
+    DATABASES = {
+        'default': dj_database_url.parse(DATABASE_URL, conn_max_age=600, ssl_require=True)
+    }
 else:
-    DATABASES = {'default': {'ENGINE': 'django.db.backends.sqlite3', 'NAME': BASE_DIR / 'db.sqlite3'}}
+    # Local / si no hay DATABASE_URL -> no crashea
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
+# Para que te deje entrar en dockhosting.dev sin error 400
+ALLOWED_HOSTS = ['*']
+CSRF_TRUSTED_ORIGINS = ['https://*.dockhosting.dev', 'https://biblioteca-cordoba.dockhosting.dev']
+    
 
 
 # Password validation
