@@ -114,6 +114,10 @@ else:
 # Para que te deje entrar en dockhosting.dev sin error 400
 ALLOWED_HOSTS = ['*']
 CSRF_TRUSTED_ORIGINS = ['https://*.dockhosting.dev', 'https://biblioteca-cordoba.dockhosting.dev']
+SECURE_SSL_REDIRECT = False
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+USE_X_FORWARDED_HOST = True
+SESSION_COOKIE_SECURE = False
     
 
 
