@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 import os
 from pathlib import Path
 from dotenv import load_dotenv
+import dj_database_url
 
 
 
@@ -84,7 +85,19 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 
-if os.environ.get('DB_ENGINE', 'sqlite').lower() == 'postgres':
+# https://docs.djangoproject.com/en/5.1/ref/settings/#databases
+
+
+if os.environ.get('DATABASE_URL'):
+    # PRODUCCION - DockHosting (PostgreSQL)
+    DATABASES = {
+        'default': dj_database_url.config(
+            conn_max_age=600,
+            ssl_require=True
+        )
+    }
+elif os.environ.get('DB_ENGINE', 'sqlite').lower() == 'postgres':
+    # TU CONFIGURACION ANTERIOR (por si usas DB_*)
     DATABASES = {'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': os.environ.get('DB_NAME', ''),
